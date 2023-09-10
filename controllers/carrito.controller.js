@@ -1,6 +1,7 @@
 const { carrito } = require("../models/carrito.model");
 
 const jwt = require("../auth/jwt");
+const { createCipheriv } = require("crypto");
 
 const newCarrito = async (username) => {
   // por cada usuario se crea carrito vacio
@@ -53,6 +54,31 @@ const addItem = async (req, res) => {
   }
 };
 
+const listCarrito = async (req, res) => {
+try{
+  const username = jwt.extractSub(req);
+  const { itemId } = req.body;
+  const filter = {
+    //crea filtro para buscar usuario en bd
+    username: username,
+  };
+
+  const car = await carrito.findOne(filter);
+  return res.json({
+    msg: "ok",
+    carrito: car
+  });
+
+} catch (error) {
+  return res.status(500).json({
+    msg: "error al consultar los posts",
+    details: error.message,
+  });
+
+
+}
+}
+
 const remove = async (req, res) => {
   try {
     const username = jwt.extractSub(req);
@@ -80,4 +106,4 @@ const remove = async (req, res) => {
   }
 };
 
-module.exports = { newCarrito, addItem, remove };
+module.exports = { newCarrito, addItem, remove, listCarrito };
