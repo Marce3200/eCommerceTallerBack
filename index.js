@@ -8,7 +8,8 @@ const routes = require("./routes");
 
 connectDb();
 
-var allowedOrigins = ['http://localhost:3004'];
+// var allowedOrigins = ['http://localhost:3004','http://localhost:8102' ];
+var allowedOrigins = ['http://localhost'];
 app.use(cors({
   credentials:true,
   origin: function(origin, callback){
