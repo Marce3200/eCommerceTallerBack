@@ -66,7 +66,7 @@ try{
   const car = await carrito.findOne(filter);
   return res.json({
     msg: "ok",
-    carrito: car
+    carrito: car.productList
   });
 
 } catch (error) {
