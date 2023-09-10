@@ -18,6 +18,7 @@ const signIn = async (req, res) => {
         msg: "ok",
         // si esta ok, devuelveme un token
         token: jwt.getToken(req.body.username),
+        user: u
       });
     } else {
       console.warn("intento de ingreso no autorizado");
